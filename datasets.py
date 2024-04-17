@@ -28,6 +28,9 @@ class MyDataSet(Dataset):
         targetImagePath = os.path.join(self.targetPath, self.inputImages[index])
         targetImage = Image.open(targetImagePath).convert('RGB')
 
+        if inputImage.size != targetImage.size:
+            targetImage = targetImage.resize((inputImage.size[0], inputImage.size[1]), Image.BILINEAR)
+
         input_ = ttf.to_tensor(inputImage)
         target = ttf.to_tensor(targetImage)
 
